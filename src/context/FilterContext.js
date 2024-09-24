@@ -36,7 +36,7 @@ export const FilterContextProvider = ({ children }) => {
         type: "UPDATE_ACTIVE_FILTERS",
         payload: { filterTypeText, item, mappedIndex },
       });
-    dispatch({type: "filteredStories"});
+    dispatch({type: "FILTERED_STORIES"});
 
   }
 
@@ -47,7 +47,7 @@ export const FilterContextProvider = ({ children }) => {
 
   // to load all the stories
   useEffect(() => {
-    dispatch({ type: "LOAD_filteredStories", payload: stories });
+    dispatch({ type: "LOAD_FILTERED_STORIES", payload: stories });
   }, [stories]);
 
   return (

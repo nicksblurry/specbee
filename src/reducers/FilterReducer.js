@@ -1,6 +1,6 @@
 const filterReducer = (state, action) => {
   switch (action.type) {
-    case "LOAD_filteredStories":
+    case "LOAD_FILTERED_STORIES":
       let categories = [];
       let authors = [];
       action.payload.forEach((item) => {
@@ -107,7 +107,7 @@ const filterReducer = (state, action) => {
         };
       }
 
-    case "filteredStories":
+    case "FILTERED_STORIES":
       let { allStories } = state;
       let tempFilterProduct = [...allStories];
 
