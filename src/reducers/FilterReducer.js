@@ -32,7 +32,7 @@ const filterReducer = (state, action) => {
 
     case "SORT_STORIES":
       const { sortValue, sortMethod } = state;
-      let tempSortProduct = [...state.allStories];
+      let tempSortStories = [...state.allStories];
 
       const sortstories = (a, b) => {
         if (sortValue === "date" && sortMethod) {
@@ -52,7 +52,7 @@ const filterReducer = (state, action) => {
         }
       };
 
-      let newSortData = tempSortProduct.sort(sortstories);
+      let newSortData = tempSortStories.sort(sortstories);
       let sortAllArticles = state.allStories.sort(sortstories)
 
       return {
@@ -109,9 +109,9 @@ const filterReducer = (state, action) => {
 
     case "FILTERED_STORIES":
       let { allStories } = state;
-      let tempFilterProduct = [...allStories];
+      let tempFilterStories = [...allStories];
 
-      tempFilterProduct = tempFilterProduct.filter((curElem) => {
+      tempFilterStories = tempFilterStories.filter((curElem) => {
         return (
           state.activeCategories.includes(curElem.source) ||
           state.activeAuthors.includes(curElem.author)
@@ -120,7 +120,7 @@ const filterReducer = (state, action) => {
 
       return {
         ...state,
-        filteredStories: tempFilterProduct,
+        filteredStories: tempFilterStories,
       };
 
     default:
