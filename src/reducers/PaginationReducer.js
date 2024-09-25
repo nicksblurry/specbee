@@ -1,10 +1,10 @@
 const PaginationReducer = (state, action) => {
   switch (action.type) {
     case "ADD_PAGINATION":
-      const { filteredStories, allStories, activeCategories, activeAuthors } = action.payload;
+      const { filteredStories, allStories, activeCategories, activeAuthors, searchValue } = action.payload;
 
       let data;
-      if (activeCategories?.length === 0 && activeAuthors?.length === 0) {
+      if (activeCategories?.length === 0 && activeAuthors?.length === 0 && searchValue.length === 0) {
         data = allStories;
       } else {
         data = filteredStories;

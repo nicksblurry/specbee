@@ -2,7 +2,7 @@ import React from "react";
 import FilterCheckboxItem from "./Checkbox";
 import { useFilterContext } from "../../context/FilterContext";
 
-const FilterBy = ({ filterType, filterCheckboxMap, filterTypeText, activeFilters }) => {
+const FilterBy = ({ filterType, filterCheckboxMap, filterTypeText }) => {
   const { updateActiveFilters } = useFilterContext();
 
   const handleCheckboxClick = (itemName, index, filterTypeText) => {

@@ -5,28 +5,40 @@ import filterReducer from "../reducers/FilterReducer";
 const FilterContext = createContext();
 
 const initialState = {
-  filteredStories: [],
-  allStories: [],
-  filteredCategories: [],
-  filteredCategoriesCheckboxes: [],
-  activeCategories: [],
-  filteredAuthors: [],
+  filteredStories: [],            // filtered results data after search/filter 
+  allStories: [],                 // list of all article data
+  filteredCategories: [],         // list of all categories
+  filteredCategoriesCheckboxes: [], 
+  activeCategories: [],           // list of active categories
+  filteredAuthors: [],            // list of all authors
   filteredAuthorsCheckboxes: [],
-  activeAuthors: [],
-  sortValue: "",
-  sortMethod: "",
+  activeAuthors: [],              // list of active authors
+  sortValue: "",                  // date/title
+  sortMethod: "",                 // ascending/descending
+  searchValue: "",                // search string
 };
 
 export const FilterContextProvider = ({ children }) => {
   const { stories } = useAppReducer();
-
   const [state, dispatch] = useReducer(filterReducer, initialState);
 
-  // sorting function
+  // to sort the stories
+  useEffect(() => {
+    dispatch({ type: "SORT_STORIES" });
+  }, [stories, state.sortValue, state.sortMethod]);
+
+  // to load all the stories
+  useEffect(() => {
+    dispatch({ type: "LOAD_FILTERED_STORIES", payload: stories });
+  }, [stories]);
+
+
+  // sorting
   const sorting = (item, isAscendingSorting) => {
-    dispatch({ type: "GET_sortValue", payload: { item, isAscendingSorting } });
+    dispatch({ type: "GET_SORT_VALUE", payload: { item, isAscendingSorting } });
   };
 
+  // update active filters 
   const updateActiveFilters = (filterTypeText, item, mappedIndex, index) => {
     dispatch({
         type: "UPDATE_FILTER_CHECKBOX_MAP",
@@ -40,15 +52,20 @@ export const FilterContextProvider = ({ children }) => {
 
   }
 
-  // to sort the product
-  useEffect(() => {
-    dispatch({ type: "SORT_STORIES" });
-  }, [stories, state.sortValue, state.sortMethod]);
+  // change search value
+  const changeSearchValue = (value) => {
+    dispatch({
+      type: "CHANGE_SEARCH_VALUE",
+      payload: value,
+    });
+  };
 
-  // to load all the stories
-  useEffect(() => {
-    dispatch({ type: "LOAD_FILTERED_STORIES", payload: stories });
-  }, [stories]);
+  // update search articles
+  const updateSearchedArticle = () => {
+    dispatch({
+      type: "UPDATE_SEARCHED_ARTICLE",
+    });
+  };
 
   return (
     <FilterContext.Provider
@@ -56,6 +73,8 @@ export const FilterContextProvider = ({ children }) => {
         ...state,
         sorting,
         updateActiveFilters,
+        changeSearchValue,
+        updateSearchedArticle,
       }}>
       {children}
     </FilterContext.Provider>

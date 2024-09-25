@@ -4,13 +4,13 @@ import { useFilterContext } from "../../context/FilterContext";
 import { usePaginationContext } from "../../context/PaginationContext";
 
 const StoriesSection = () => {
-  const { filteredStories, allStories, activeCategories, activeAuthors } = useFilterContext();
+  const { filteredStories, allStories, activeCategories, activeAuthors, searchValue } = useFilterContext();
   const { currentPage, limit } = usePaginationContext();
 
   const [articleData, setArticleData] = useState([]);
 
   useEffect(() => {
-    if (activeCategories.length === 0 && activeAuthors.length === 0) {
+    if (activeCategories.length === 0 && activeAuthors.length === 0 && searchValue.length === 0) {
       setArticleData(allStories);
     } else {
       setArticleData(filteredStories);

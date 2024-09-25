@@ -13,7 +13,7 @@ const initialState = {
 
 const PaginationProvider = ({ children }) => {
   const [state, dispatch] = useReducer(paginationReducer, initialState);
-  const { filteredStories, allStories, activeCategories, activeAuthors } = useFilterContext();
+  const { filteredStories, allStories, activeCategories, activeAuthors, searchValue } = useFilterContext();
 
   useEffect(() => {
     dispatch({
@@ -23,6 +23,7 @@ const PaginationProvider = ({ children }) => {
         allStories,
         activeCategories,
         activeAuthors,
+        searchValue,
       },
     });
   }, [allStories, filteredStories, activeCategories, activeAuthors]);

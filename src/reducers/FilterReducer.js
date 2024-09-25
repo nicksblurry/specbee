@@ -23,7 +23,7 @@ const filterReducer = (state, action) => {
         allStories: action.payload,
       };
 
-    case "GET_sortValue":
+    case "GET_SORT_VALUE":
       return {
         ...state,
         sortValue: action.payload.item,
@@ -122,6 +122,25 @@ const filterReducer = (state, action) => {
         ...state,
         filteredStories: tempFilterStories,
       };
+
+    case "CHANGE_SEARCH_VALUE":
+      return {
+        ...state,
+        searchValue: action.payload,
+      };
+
+    case "UPDATE_SEARCHED_ARTICLE":
+      let tempArticleList = [...state.allStories];
+
+      tempArticleList = tempArticleList.filter((curElem) =>
+        curElem.title.toLowerCase().includes(state.searchValue.toLowerCase())
+      );
+
+      return {
+        ...state,
+        filteredStories: tempArticleList,
+      };
+
 
     default:
       return state;
